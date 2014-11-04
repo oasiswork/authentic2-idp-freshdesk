@@ -1,0 +1,10 @@
+MANIFEST
+*.pyc
+*.pyo
+.*.swp
+cache/
+dist/
+doc/_build
+*.egg-info
+log.log
+*.mo
