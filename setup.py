@@ -2,9 +2,12 @@
 from setuptools import setup, find_packages
 import os
 
-README = file(os.path.join(
-    os.path.dirname(__file__),
-    'README.md')).read()
+readme_path = os.path.join(os.path.dirname(__file__), 'README.md')
+
+if os.path.exists(readme_path):
+    README = file(readme_path).read()
+else:
+    README = ''
 
 setup(name='authentic2-idp-freshdesk',
         version='0.1',
