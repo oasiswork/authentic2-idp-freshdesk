@@ -38,5 +38,13 @@ def authenticate(request):
     url = '{0}/login/sso?name={1}&email={2}&timestamp={3}&hash={4}'.format(
         settings.FRESHDESK_URL.strip('/'),
         urlquote(full_name), urlquote(request.user.email), utctime, generated_hash)
+
+    # If configured, we have an option to divert the user based on his email to
+    # an url insetad of the freshdesk.
+    if hasattr(settings, 'FRESHDESK_DIVERT'):
+        diverter = settings.FRESHDESK_DIVERT
+        if diverter.should_divert(request.user):
+            return HttpResponseRedirect(diverter.divert_url(request.user, request))
+
     return HttpResponseRedirect(iri_to_uri(url))
 

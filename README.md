@@ -27,3 +27,30 @@ fresdhesk site.
 
     FRESHDESK_URL = 'http://yourcompany.freshdesk.com'
     FRESHDESK_SECRET_KEY = 'XXXXXXXXXXXX'
+
+
+### Diverting some users to somewhere else
+
+You may need to authorize freshdesk access only for a subset of your users,
+willing to redirect others to a custom URL (ex: custom error page). There is the
+`FRESHDESK_DIVERT` setting for that.
+
+    you should point it to an object instance with two methods :
+    should_divert(email) and divert_url(email), for ex:
+
+    class TestDiverter():
+        def should_divert(self, user):
+            """
+            :returns True if the user should be diverted out of FD false else
+            if user.email == 'foobar@example.com':
+                return True
+            else:
+                return False
+
+        def divert_url(self, user, request):
+            """
+            :returns an url, the diversion path, the system will HTTP 302 there.
+            """
+            return 'http://example.com/{}'.format(user.email)
+
+    FRESHDESK_DIVERT='TestDiverter()'
