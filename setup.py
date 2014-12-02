@@ -10,7 +10,7 @@ else:
     README = ''
 
 setup(name='authentic2-idp-freshdesk',
-        version='0.1',
+        version='0.2',
         license='AGPLv3',
         description='Freshdesk simple SSO support for Authentic2',
         long_description=README,
