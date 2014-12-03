@@ -1,3 +1,5 @@
+from __future__ import unicode_literals
+
 from django.http import HttpResponseRedirect, Http404
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.cache import never_cache
@@ -43,7 +45,7 @@ def authenticate(request):
     data = '{0}{1}{2}'.format(
         full_name, request.user.email, utctime)
     generated_hash = hmac.new(
-        settings.FRESHDESK_SECRET_KEY.encode(), data.encode(), hashlib.md5).hexdigest()
+        settings.FRESHDESK_SECRET_KEY.encode(), data.encode('utf-8'), hashlib.md5).hexdigest()
     url = '{0}/login/sso?name={1}&email={2}&timestamp={3}&hash={4}'.format(
         settings.FRESHDESK_URL.strip('/'),
         urlquote(full_name), urlquote(request.user.email), utctime, generated_hash)
