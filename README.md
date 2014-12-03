@@ -53,4 +53,6 @@ willing to redirect others to a custom URL (ex: custom error page). There is the
             """
             return 'http://example.com/{}'.format(user.email)
 
-    FRESHDESK_DIVERT='TestDiverter()'
+And in your `local_settings.py`
+
+    FRESHDESK_DIVERT='mymodule.TestDiverter'
